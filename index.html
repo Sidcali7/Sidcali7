@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nasheed Playlist</title>
+    <style>
+        /* CSS Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #2e1a47; /* Dark purple background */
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #fff;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .playlist-container {
+            width: 100%;
+            max-width: 600px;
+            background-color: #4a2c68; /* Slightly lighter purple */
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #fff;
+            margin: 0;
+        }
+
+        .icon-like {
+            color: #ffd700; /* Gold for like icon */
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            border-top: 1px solid #fff;
+        }
+
+        li {
+            padding: 12px;
+            margin: 10px 0;
+            background-color: #654b79; /* Item background */
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: background-color 0.3s;
+        }
+
+        li:hover {
+            background-color: #7a5b99; /* Hover effect */
+        }
+
+        li span {
+            display: flex;
+            align-items: center;
+        }
+
+        .icon-heart {
+            margin-right: 10px;
+            color: #f08080; /* Light pink for heart icons */
+        }
+
+        .icon-music {
+            color: #ffd700; /* Gold for music note icons */
+        }
+
+        .audio-container {
+            margin-top: 20px;
+            background-color: #3c275a; /* Darker purple for the player */
+            border-radius: 5px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .audio-container input[type="range"] {
+            width: 100%;
+            -webkit-appearance: none;
+            appearance: none;
+            height: 5px;
+            background: #ddd;
+            outline: none;
+            opacity: 0.7;
+            transition: opacity .15s ease-in-out;
+            border-radius: 5px;
+        }
+
+        .audio-container input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            background: #ffd700;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+        }
+
+        .control-button {
+            background-color: #5a3a77;
+            border: none;
+            border-radius: 50%;
+            padding: 12px;
+            margin: 0 8px;
+            cursor: pointer;
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+
+        .control-button i {
+            font-size: 18px;
+        }
+
+        .control-button:hover {
+            background-color: #7a5b99; /* Darker purple on hover */
+        }
+
+        /* Mosque decorations CSS */
+        .mosque-decoration {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(circle closest-side, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.1) 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .mosque-decoration::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: mosque-animation 8s linear infinite;
+        }
+
+        @keyframes mosque-animation {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        /* Responsive design adjustments */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 20px;
+            }
+
+            .playlist-container {
+                padding: 15px;
+            }
+
+            li {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            .control-button {
+                padding: 10px;
+            }
+        }
+    </style>
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+</head>
+<body>
+    <div class="playlist-container">
+        <div class="header">
+            <h1>أناشيد ماهر زين</h1>
+            <i class="fas fa-thumbs-up icon-like"></i>
+        </div>
+        <ul id="playlist">
+            <li data-src="https://naijafinix.com/wp-content/uploads/2021/11/Maher-Zain-Hubb-Ennabi-Loving-the-Prophet-via-Naijafinix.com_.mp3">
+                <span><i class="fas fa-heart icon-heart"></i> Salamullah 2024 سلام الله</span>
+                <i class="fas fa-music icon-music"></i>
+            </li>
+            <li data-src="https://files.thenaatsharif.com/downloads/maher-zain/huwa-ahmadun.mp3">
+                <span><i class="far fa-heart icon-heart"></i> Rahma Lilalameen رحمة للعالمين</span>
+                <i class="fas fa-music icon-music"></i>
+            </li>
+            <li data-src="nasheed3.mp3">
+                <span><i class="fas fa-heart icon-heart"></i> Hubb Ennabi حب النبي</span>
+                <i class="fas fa-music icon-music"></i>
+            </li>
+            <!-- Add more list items as needed -->
+            <li data-src="nasheed4.mp3">
+                <span><i class="far fa-heart icon-heart"></i> Example Nasheed اسم النشيد</span>
+                <i class="fas fa-music icon-music"></i>
+            </li>
+            <li data-src="nasheed5.mp3">
+                <span><i class="far fa-heart icon-heart"></i> Another Nasheed نشيد آخر</span>
+                <i class="fas fa-music icon-music"></i>
+            </li>
+        </ul>
+        <div class="audio-container">
+            <button class="control-button" id="backwardButton"><i class="fas fa-backward"></i></button>
+            <input type="range" id="seekBar" value="0">
+            <button class="control-button" id="playPauseButton"><i class="fas fa-play"></i></button>
+            <button class="control-button" id="forwardButton"><i class="fas fa-forward"></i></button>
+        </div>
+    </div>
+    <script>
+        // JavaScript for playlist functionality
+        document.addEventListener('DOMContentLoaded', function() {
+    const playlist = document.getElementById('playlist');
+    const audioPlayer = new Audio();
+    const playPauseButton = document.getElementById('playPauseButton');
+    const seekBar = document.getElementById('seekBar');
+    const backwardButton = document.getElementById('backwardButton');
+    const forwardButton = document.getElementById('forwardButton');
+    
+    let isPlaying = false;
+    let currentTrackIndex = 0;
+    
+    // Array to store all the tracks
+    const tracks = [
+        { title: "Salamullah 2024 سلام الله", source: "https://naijafinix.com/wp-7/uploads/2021/11/Maher-Zain-Hubb-Ennabi-Loving-the-Prophet-via-Naijafinix.com_.mp3" },
+        { title: "Rahma Lilalameen رحمة للعالمين", source: "https://files.thenaatsharif.com/downloads/maher-zain/huwa-ahmadun.mp3" },
+        { title: "Hubb Ennabi حب النبي", source: "nasheed3.mp3" },
+        { title: "Example Nasheed اسم النشيد", source: "nasheed4.mp3" },
+        { title: "Another Nasheed نشيد آخر", source: "nasheed5.mp3" }
+    ];
+    
+    // Function to play the next track
+    function playNextTrack() {
+        currentTrackIndex++;
+        if (currentTrackIndex >= tracks.length) {
+            currentTrackIndex = 0; // Loop back to the first track
+        }
+        const nextTrack = tracks[currentTrackIndex];
+        audioPlayer.src = nextTrack.source;
+        audioPlayer.play();
+        isPlaying = true;
+        playPauseButton.innerHTML = '<i class="fas fa-pause"></i>';
+        
+        // Highlight the current playing item
+        const items = playlist.getElementsByTagName('li');
+        for (let item of items) {
+            item.style.backgroundColor = '#654b79';
+        }
+        items[currentTrackIndex].style.backgroundColor = '#7a5b99';
+    }
+    
+    // Function to update seekbar position
+    function updateSeekBar() {
+        seekBar.value = (audioPlayer.currentTime / audioPlayer.duration) * 100 || 0;
+    }
+    
+    // Update seekbar as the audio plays
+    audioPlayer.addEventListener('timeupdate', updateSeekBar);
+    
+    // Play or pause audio
+    playPauseButton.addEventListener('click', function() {
+        if (isPlaying) {
+            audioPlayer.pause();
+            playPauseButton.innerHTML = '<i class="fas fa-play"></i>';
+        } else {
+            audioPlayer.play();
+            playPauseButton.innerHTML = '<i class="fas fa-pause"></i>';
+        }
+        isPlaying = !isPlaying;
+    });
+    
+    // Seek functionality
+    seekBar.addEventListener('input', function() {
+        const seekTo = audioPlayer.duration * (seekBar.value / 100);
+        audioPlayer.currentTime = seekTo;
+    });
+    
+    // Backward button functionality
+    backwardButton.addEventListener('click', function() {
+        audioPlayer.currentTime -= 10; // Go back 10 seconds
+    });
+    
+    // Forward button functionality
+    forwardButton.addEventListener('click', function() {
+        audioPlayer.currentTime += 10; // Go forward 10 seconds
+    });
+    
+    // Highlight the current playing item
+    playlist.addEventListener('click', function(e) {
+        if (e.target && (e.target.nodeName === 'LI' || e.target.closest('li'))) {
+            const li = e.target.nodeName === 'LI' ? e.target : e.target.closest('li');
+            const index = Array.from(playlist.children).indexOf(li);
+            const source = tracks[index].source;
+            audioPlayer.src = source;
+            audioPlayer.play();
+            isPlaying = true;
+            playPauseButton.innerHTML = '<i class="fas fa-pause"></i>';
+            
+            // Highlight the current playing item
+            const items = playlist.getElementsByTagName('li');
+            for (let item of items) {
+                item.style.backgroundColor = '#654b79';
+            }
+            li.style.backgroundColor = '#7a5b99';
+            
+            currentTrackIndex = index;
+        }
+    });
+    
+    // Autoplay next track when current track ends
+    audioPlayer.addEventListener('ended', function() {
+        playNextTrack();
+    });
+});
+    </script>
+</body>
+</html>
